@@ -118,7 +118,7 @@ export function ScreenshotWrapper({
         uri,
         type: 'image/png',
         name: 'screenshot.png',
-      } as any);
+      } as unknown as Blob);
 
       await fetch(`${activeUrl}/screenshot`, {
         method: 'POST',

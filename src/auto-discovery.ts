@@ -107,7 +107,7 @@ export async function discoverServer(
   ports: number | number[] = [3333, 3000, 3001, 8080, 8081, 5000, 4000]
 ): Promise<DiscoveryResult | null> {
   const ranges = getIPRangesToScan();
-  
+
   // Handle both single port and array of ports for backward compatibility
   const portArray = Array.isArray(ports) ? ports : [ports];
 

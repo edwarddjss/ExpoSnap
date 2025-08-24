@@ -81,7 +81,8 @@ export function startHttpServer(): Promise<number> {
         return;
       }
 
-      const actualPort = (server.address() as any)?.port || CONFIG.HTTP_PORT;
+      const actualPort =
+        (server.address() as { port: number } | null)?.port || CONFIG.HTTP_PORT;
       console.log(`[ExpoSnap] HTTP server running on port ${actualPort}`);
       resolve(actualPort);
     });
