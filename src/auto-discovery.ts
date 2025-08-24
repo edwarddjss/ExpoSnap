@@ -104,12 +104,15 @@ async function scanIPRange(
  * Discovers ExpoSnap servers on the local network
  */
 export async function discoverServer(
-  ports: number[] = [3333, 3000, 3001, 8080, 8081, 5000, 4000]
+  ports: number | number[] = [3333, 3000, 3001, 8080, 8081, 5000, 4000]
 ): Promise<DiscoveryResult | null> {
   const ranges = getIPRangesToScan();
+  
+  // Handle both single port and array of ports for backward compatibility
+  const portArray = Array.isArray(ports) ? ports : [ports];
 
   // Try each port on each range
-  for (const port of ports) {
+  for (const port of portArray) {
     const rangePromises = ranges.map(range => scanIPRange(range, port));
 
     for (const promise of rangePromises) {
