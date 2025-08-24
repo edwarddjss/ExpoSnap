@@ -25,11 +25,13 @@ export function createHttpServer() {
 
   // Auto-discovery ping endpoint
   app.get('/ping', (req: Request, res: Response) => {
+    // Get the actual port from the server instance
+    const actualPort = req.socket.localPort || CONFIG.HTTP_PORT;
     res.json({
       service: 'exposnap',
       version: '1.1.0',
       status: 'ready',
-      port: CONFIG.HTTP_PORT,
+      port: actualPort,
     });
   });
 
@@ -67,22 +69,27 @@ app.post(
   }
 );
 
-export function startHttpServer(): Promise<void> {
+export function startHttpServer(): Promise<number> {
   return new Promise((resolve, reject) => {
-    const server = app.listen(CONFIG.HTTP_PORT, (err?: Error) => {
+    // Use dynamic port allocation (0) by default, or the configured port if explicitly set
+    const port = CONFIG.HTTP_PORT;
+
+    const server = app.listen(port, (err?: Error) => {
       if (err) {
         console.error(`[ExpoSnap] Failed to start HTTP server:`, err);
         reject(err);
         return;
       }
-      console.log(`[ExpoSnap] HTTP server running on port ${CONFIG.HTTP_PORT}`);
-      resolve();
+
+      const actualPort = (server.address() as any)?.port || CONFIG.HTTP_PORT;
+      console.log(`[ExpoSnap] HTTP server running on port ${actualPort}`);
+      resolve(actualPort);
     });
 
     server.on('error', (err: Error) => {
       if ('code' in err && (err as { code: string }).code === 'EADDRINUSE') {
         console.error(
-          `[ExpoSnap] Port ${CONFIG.HTTP_PORT} is already in use. Set EXPOSNAP_PORT environment variable to use a different port.`
+          `[ExpoSnap] Port ${CONFIG.HTTP_PORT} is already in use. Try setting EXPOSNAP_PORT to a different port or 0 for dynamic allocation.`
         );
       } else {
         console.error(`[ExpoSnap] HTTP server error:`, err);

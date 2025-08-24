@@ -6,7 +6,8 @@ import { startMcpServer } from './mcp-server.js';
 async function main() {
   try {
     await initializeStorage();
-    await startHttpServer();
+    const actualPort = await startHttpServer();
+    console.log(`[ExpoSnap] Server ready on port ${actualPort}`);
     await startMcpServer();
   } catch (error) {
     console.error('[ExpoSnap] Failed to start server:', error);
