@@ -1,6 +1,10 @@
 import { CallToolRequestSchema } from '@modelcontextprotocol/sdk/types.js';
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
-import { handleScreenshot } from './tool-handlers.js';
+import {
+  handleScreenshot,
+  handleGetLatestScreenshot,
+  handleListScreenshots,
+} from './tool-handlers.js';
 
 export function setupToolHandlers(server: Server) {
   server.setRequestHandler(CallToolRequestSchema, async request => {
@@ -8,6 +12,14 @@ export function setupToolHandlers(server: Server) {
       case 'screenshot':
         return await handleScreenshot(
           request.params.arguments?.description as string
+        );
+
+      case 'get_latest_screenshot':
+        return await handleGetLatestScreenshot();
+
+      case 'list_screenshots':
+        return await handleListScreenshots(
+          request.params.arguments?.limit as number
         );
 
       default:
