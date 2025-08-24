@@ -118,7 +118,7 @@ Claude will capture and analyze your screenshots automatically.
 
 ## How it works
 
-Your Expo app sends screenshots to a local server (port 3333) on your computer. Claude connects to this server via MCP protocol to retrieve the images.
+Your Expo app sends screenshots to a local HTTP server on your computer. Claude connects to this server via MCP protocol to retrieve the images.
 
 ## Requirements
 
