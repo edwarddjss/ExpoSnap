@@ -104,22 +104,24 @@ async function scanIPRange(
  * Discovers ExpoSnap servers on the local network
  */
 export async function discoverServer(
-  port: number = 3333
+  ports: number[] = [3333, 3000, 3001, 8080, 8081, 5000, 4000]
 ): Promise<DiscoveryResult | null> {
   const ranges = getIPRangesToScan();
 
-  // Try each range in parallel, return the first successful result
-  const rangePromises = ranges.map(range => scanIPRange(range, port));
+  // Try each port on each range
+  for (const port of ports) {
+    const rangePromises = ranges.map(range => scanIPRange(range, port));
 
-  for (const promise of rangePromises) {
-    try {
-      const result = await promise;
-      if (result) {
-        return result;
+    for (const promise of rangePromises) {
+      try {
+        const result = await promise;
+        if (result) {
+          return result;
+        }
+      } catch {
+        // Continue to next range
+        continue;
       }
-    } catch {
-      // Continue to next range
-      continue;
     }
   }
 
