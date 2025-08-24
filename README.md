@@ -23,10 +23,13 @@ Ask Claude *"Take a screenshot"* or tap the camera button in your app - screensh
 
 **1. Configure your IDE**
 
-### Claude Desktop
+### Claude Code
+```bash
+claude mcp add exposnap -- npx -y exposnap-mcp
+```
 
-Add to `claude_desktop_config.json`:
-
+### Cursor
+Add to `.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
@@ -39,9 +42,7 @@ Add to `claude_desktop_config.json`:
 ```
 
 ### VS Code
-
-Add to `.vscode/mcp.json` in your workspace:
-
+Add to `.vscode/mcp.json`:
 ```json
 {
   "servers": {
@@ -54,10 +55,8 @@ Add to `.vscode/mcp.json` in your workspace:
 }
 ```
 
-### Cursor
-
-Add to your Cursor MCP configuration:
-
+### Claude Desktop
+Settings → Developer → Edit Config:
 ```json
 {
   "mcpServers": {
