@@ -1,0 +1,12 @@
+node_modules/
+dist/
+screenshots/
+coverage/
+.cursor/
+.vscode/
+.windsurf/
+.env
+.DS_Store
+Thumbs.db
+.claude/
+CLAUDE.md

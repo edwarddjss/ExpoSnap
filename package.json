@@ -1,0 +1,84 @@
+{
+  "name": "exposnap",
+  "version": "2.1.18",
+  "description": "ExpoSnap: Enhanced MCP server for screenshot management with remote capture and AI integration",
+  "type": "module",
+  "main": "dist/index.js",
+  "react-native": "src/exports.ts",
+  "bin": {
+    "exposnap": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "prepack": "npm run build"
+  },
+  "exports": {
+    ".": "./dist/exports.js",
+    "./ScreenshotWrapper": "./dist/ScreenshotWrapper.js",
+    "./auto-discovery": "./dist/auto-discovery.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edwarddjss/ExpoSnap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/edwarddjss/ExpoSnap/issues"
+  },
+  "homepage": "https://github.com/edwarddjss/ExpoSnap#readme",
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "mcp",
+    "expo",
+    "screenshots",
+    "claude",
+    "cursor",
+    "vscode",
+    "windsurf"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.4",
+    "express": "^4.21.2",
+    "multer": "^2.0.2",
+    "react-native-view-shot": "^3.8.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-native": ">=0.60.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.23",
+    "@types/multer": "2.0.0",
+    "@types/node": "^20.19.11",
+    "@types/react-native": "^0.72.8",
+    "@types/supertest": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.40.0",
+    "@typescript-eslint/parser": "^8.40.0",
+    "@vitest/coverage-v8": "^2.1.9",
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^9.1.2",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "prettier": "^3.6.2",
+    "supertest": "^7.1.4",
+    "tsx": "^4.20.4",
+    "typescript": "^5.9.2",
+    "vitest": "^2.1.9"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "author": ""
+}
