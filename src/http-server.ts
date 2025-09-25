@@ -5,10 +5,6 @@ import path from 'path';
 import { CONFIG } from './config.js';
 import { addScreenshot, getScreenshotPath } from './storage.js';
 import { generateScreenshotId, notifyNewScreenshot } from './utils.js';
-import {
-  getLatestPendingRequest,
-  completeScreenshotRequest,
-} from './screenshot-requests.js';
 
 export function createHttpServer() {
   const app = express();
@@ -54,25 +50,6 @@ export function createHttpServer() {
       port: actualPort,
       timestamp: Date.now(),
     });
-  });
-
-  // Screenshot request polling endpoint for mobile app
-  app.get('/screenshot-request', (req: Request, res: Response) => {
-    const pendingRequest = getLatestPendingRequest();
-    res.json({
-      requested: !!pendingRequest,
-      id: pendingRequest?.id,
-      description: pendingRequest?.description,
-    });
-  });
-
-  // Screenshot request completion endpoint
-  app.post('/screenshot-completed', (req: Request, res: Response) => {
-    const { requestId } = req.body;
-    if (requestId) {
-      completeScreenshotRequest(requestId);
-    }
-    res.json({ success: true });
   });
 
   // Configure multer for file uploads

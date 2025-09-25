@@ -28,7 +28,7 @@ describe('Auto-discovery', () => {
       expect(response.body).toEqual({
         name: 'exposnap-mcp-server',
         service: 'exposnap',
-        version: '2.0.0',
+        version: '2.2.2',
         status: 'ready',
         port: expect.any(Number),
       });

@@ -1,38 +1,67 @@
-import React, { useRef, useCallback } from 'react';
-import { View } from 'react-native';
+import React, { useRef, useCallback, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { useConnection } from './hooks/useConnection';
 import { useScreenshotCapture } from './hooks/useScreenshotCapture';
-import { useAutoCapture } from './hooks/useAutoCapture';
+import { ConnectionStatus } from './components/CameraIcon';
+import { DraggableIcon } from './components/DraggableIcon';
 
 interface ScreenshotWrapperProps {
   children: React.ReactNode;
+  showCameraIcon?: boolean;
 }
 
-export function ScreenshotWrapper({ children }: ScreenshotWrapperProps) {
-  const viewRef = useRef<View>(null);
+export function ScreenshotWrapper({ 
+  children, 
+  showCameraIcon = true
+}: ScreenshotWrapperProps) {
+  const contentRef = useRef<View>(null);
   const connection = useConnection();
   const screenshot = useScreenshotCapture(connection.url);
+  const [isCapturing, setIsCapturing] = useState(false);
 
-  // Stable capture function
-  const captureFunction = useCallback(
-    (requestId?: string) =>
-      screenshot.captureAndUploadSilent(viewRef, requestId),
-    [screenshot]
-  );
+  // Manual capture function
+  const handleCameraPress = useCallback(async () => {
+    if (!connection.isConnected || isCapturing) return;
+    
+    setIsCapturing(true);
+    try {
+      await screenshot.captureAndUploadSilent(contentRef);
+    } finally {
+      setIsCapturing(false);
+    }
+  }, [connection.isConnected, screenshot, isCapturing]);
 
-  // Auto-capture system
-  useAutoCapture(
-    {
-      serverUrl: connection.url || '',
-      pollInterval: 3000, // 3 second default polling
-      enabled: connection.isConnected,
-    },
-    captureFunction
-  );
+  // Determine camera icon status
+  const getCameraStatus = (): ConnectionStatus => {
+    if (isCapturing) return 'connecting';
+    if (connection.isConnected) return 'connected';
+    return 'disconnected';
+  };
 
   return (
-    <View style={{ flex: 1 }} ref={viewRef} collapsable={false}>
-      {children}
+    <View style={styles.container}>
+      {/* Content area that will be captured */}
+      <View style={styles.contentContainer} ref={contentRef} collapsable={false}>
+        {children}
+      </View>
+      
+      {/* Camera icon overlay - outside capture area */}
+      {showCameraIcon && (
+        <DraggableIcon
+          status={getCameraStatus()}
+          onPress={handleCameraPress}
+          disabled={isCapturing}
+        />
+      )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    flex: 1,
+  },
+});

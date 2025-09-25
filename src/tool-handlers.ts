@@ -1,59 +1,9 @@
 import fs from 'fs/promises';
-import { requestScreenshot, waitForNewScreenshot } from './utils.js';
 import {
   getLatestScreenshot,
   getAllScreenshots,
   getScreenshotPath,
 } from './storage.js';
-import { completeScreenshotRequest } from './screenshot-requests.js';
-
-export async function handleScreenshot(description?: string) {
-  try {
-    const requestId = await requestScreenshot(description);
-
-    const screenshot = await waitForNewScreenshot(15000); // 15 second timeout
-
-    if (!screenshot) {
-      return {
-        content: [
-          {
-            type: 'text',
-            text: 'Screenshot request timeout - ensure mobile app is active and connected',
-          },
-        ],
-      };
-    }
-
-    // Mark the request as completed
-    completeScreenshotRequest(requestId);
-
-    const imageData = await fs.readFile(screenshot.path);
-    const base64 = imageData.toString('base64');
-
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `Screenshot captured${description ? ` - ${description}` : ''}`,
-        },
-        {
-          type: 'image',
-          data: base64,
-          mimeType: 'image/png',
-        },
-      ],
-    };
-  } catch (error) {
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `Failed to take screenshot: ${error instanceof Error ? error.message : 'Unknown error'}`,
-        },
-      ],
-    };
-  }
-}
 
 export async function handleGetLatestScreenshot() {
   try {

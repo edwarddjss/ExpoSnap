@@ -1,20 +1,5 @@
 export const TOOL_SCHEMAS = [
   {
-    name: 'screenshot',
-    description: 'Take a screenshot of the current Expo app screen',
-    inputSchema: {
-      type: 'object',
-      properties: {
-        description: {
-          type: 'string',
-          description:
-            'Optional description of what to capture (e.g., "login screen", "user profile")',
-        },
-      },
-      additionalProperties: false,
-    },
-  },
-  {
     name: 'get_latest_screenshot',
     description: 'Get the most recent Expo screenshot without taking a new one',
     inputSchema: {
