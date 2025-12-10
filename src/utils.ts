@@ -3,5 +3,5 @@ export function generateScreenshotId(): string {
 }
 
 export function notifyNewScreenshot(screenshotPath: string): void {
-  console.log(`[ExpoSnap] New screenshot saved: ${screenshotPath}`);
+  console.error(`[ExpoSnap] New screenshot saved: ${screenshotPath}`);
 }

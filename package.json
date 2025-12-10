@@ -1,6 +1,6 @@
 {
   "name": "exposnap",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "ExpoSnap: Enhanced MCP server for screenshot management with remote capture and AI integration",
   "type": "module",
   "main": "dist/index.js",

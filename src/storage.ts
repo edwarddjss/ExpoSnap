@@ -39,9 +39,9 @@ async function loadExistingScreenshots() {
 
     await enforceStorageLimit();
 
-    console.log(`[ExpoSnap] Loaded ${screenshots.length} existing screenshots`);
+    console.error(`[ExpoSnap] Loaded ${screenshots.length} existing screenshots`);
   } catch {
-    console.log('[ExpoSnap] No existing screenshots found');
+    console.error('[ExpoSnap] No existing screenshots found');
   }
 }
 
@@ -62,7 +62,7 @@ export async function addScreenshot(screenshot: Screenshot): Promise<void> {
 
   await enforceStorageLimit();
 
-  console.log(`[ExpoSnap] Added screenshot: ${screenshot.id}`);
+  console.error(`[ExpoSnap] Added screenshot: ${screenshot.id}`);
 }
 
 async function enforceStorageLimit(): Promise<void> {

@@ -40,7 +40,7 @@ export function createHttpServer() {
   // Discovery endpoint that also logs the connection
   app.get('/discover', (req: Request, res: Response) => {
     const actualPort = req.socket.localPort || CONFIG.HTTP_PORT;
-    console.log(`[ExpoSnap] Discovery request from ${req.ip}`);
+    console.error(`[ExpoSnap] Discovery request from ${req.ip}`);
 
     res.json({
       name: 'exposnap-mcp-server',
@@ -136,7 +136,7 @@ export async function startHttpServer(): Promise<number> {
 
       const actualPort =
         (server.address() as { port: number } | null)?.port || port;
-      console.log(`[ExpoSnap] HTTP server running on port ${actualPort}`);
+      console.error(`[ExpoSnap] HTTP server running on port ${actualPort}`);
       resolve(actualPort);
     });
 

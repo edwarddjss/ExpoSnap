@@ -5,7 +5,7 @@ import { startHttpServer } from './http-server.js';
 import { startMcpServer } from './mcp-server.js';
 
 function showHelp() {
-  console.log(`
+  console.error(`
 ExpoSnap - Screenshot management MCP server
 
 Usage:
