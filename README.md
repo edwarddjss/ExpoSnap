@@ -4,6 +4,10 @@
   
 </div>
 
+<a href="https://glama.ai/mcp/servers/@edwarddjss/ExpoSnap">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@edwarddjss/ExpoSnap/badge" alt="ExpoSnap MCP server" />
+</a>
+
 ## ExpoSnap MCP Server
 
 A Model Context Protocol (MCP) server that enables AI assistants to view and analyze screenshots from React Native/Expo applications. Seamlessly integrates with Claude, Cursor, VS Code, and other MCP-compatible editors for AI-powered mobile UI development.
