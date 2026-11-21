@@ -1,6 +1,5 @@
-dist/
-node_modules/
-coverage/
-*.md
-pnpm-lock.yaml
-.claude/
+dist
+coverage
+node_modules
+package-lock.json
+assets

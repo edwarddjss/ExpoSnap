@@ -1,16 +1,9 @@
 {
+  "extends": "./tsconfig.client.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "jsx": "react-native"
+    "noEmit": true,
+    "types": ["node", "react-native", "vitest/globals"],
+    "rootDir": "."
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "tests", "dist"]
+  "include": ["src", "tests"]
 }

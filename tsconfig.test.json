@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node", "vitest/globals"],
+    "rootDir": ".",
+    "noEmit": true
+  },
+  "include": [
+    "tests",
+    "src/server",
+    "src/shared",
+    "src/client/session.ts",
+    "src/client/host.ts",
+    "src/client/console.ts"
+  ]
+}
